@@ -1,0 +1,26 @@
+<section>
+    <header *[ngClass]="RestorantInterface"></header>
+    <h1>{{foods.imageUrl}}</h1>
+    <div class="container">
+        <div class="row  col-6">
+            <tr *ngFor="let food of datas" >
+             
+             <td><button class="btn btn-"><td>{{food.title}}</td></button></td>
+
+            </tr>
+
+        </div>
+    </div>
+</section>
+<div class="container mt-4 mb-4">
+    <h1 class="text-center">Customers <span class="highlight">Favourites Food</span></h1>
+    <div class="row">
+        <div class="col-lg-3 mt-3" *ngFor="let data of datas">
+            <div class="foodbox">
+                <h1>{{data.title}}</h1>
+                <p>{{data.recipes}}</p>
+            </div>
+        </div>
+    </div>
+    <a routerLink="menu" class="viewmorebtn">view more <i class="bi bi-arrow-right"></i></a>
+</div>
