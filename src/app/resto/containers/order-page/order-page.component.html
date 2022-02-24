@@ -1,11 +1,11 @@
 <section>
-    <header *[ngClass]="RestorantInterface"></header>
-    <h1>{{foods.imageUrl}}</h1>
+    <header></header>
+    <h1>Resto</h1>
     <div class="container">
         <div class="row  col-6">
-            <tr *ngFor="let food of datas" >
+            <tr *ngFor="let data of datas" >
              
-             <td><button class="btn btn-"><td>{{food.title}}</td></button></td>
+             <td><button class="btn btn-"><td>{{data.title}}</td></button></td>
 
             </tr>
 
@@ -18,8 +18,11 @@
         <div class="col-lg-3 mt-3" *ngFor="let data of datas">
             <div class="foodbox">
                 <h1>{{data.title}}</h1>
-                <p>{{data.recipes}}</p>
-            </div>
+                <p>{{data.title}}</p>
+                <div *ngFor="let recipe of data.recipes">
+                    {{recipe.title}}
+                    <img src="{{recipe.imageUrl}}">
+                </div>
         </div>
     </div>
     <a routerLink="menu" class="viewmorebtn">view more <i class="bi bi-arrow-right"></i></a>
