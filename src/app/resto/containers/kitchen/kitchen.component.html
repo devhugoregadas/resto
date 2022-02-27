@@ -1,9 +1,9 @@
 <section *ngFor="let order of orders; let i = index">
     Order n°{{i}}
-    <ul *ngFor="let recipe of orders.data">
+    <ul *ngFor="let recipe of order.data">
         <li>
             {{recipe.title}}
-        <button (click)="updateStatus(order,'pending')">Update Status</button>
+        <button [disabled]="order.status" (click)="updateStatus(order,'pending')">Update Status</button>
         <button (click)="updateStatus(order,'ready')">ready</button>
         </li>
     </ul>
