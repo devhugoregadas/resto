@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OrderPageComponent } from './containers/order-page/order-page.component';
 import { ApiService } from './services/api.service';
-import { HttpClientModule } from '@angular/common/http';
 import { KitchenComponent } from './containers/kitchen/kitchen.component'
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -12,7 +12,16 @@ import { KitchenComponent } from './containers/kitchen/kitchen.component'
   ],
   imports: [
     CommonModule,
-    HttpClientModule
+    RouterModule.forChild([
+      {
+        path: '',
+        component: OrderPageComponent
+      },
+      {
+        path: 'kitchen',
+        component: KitchenComponent
+      }
+    ])
   ],
   providers: [ApiService],
   exports: [
