@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { CommandeOrder } from '../../resto.interfaces';
-import { ApiService, OrderInterface } from '../../services/api.service';
+import { RecipeInterface } from '../../resto.interfaces';
+import { KitchenService, OrderKitchenInterface } from '../../services/kitchen.service';
 
 @Component({
   selector: 'app-kitchen',
@@ -10,11 +10,11 @@ import { ApiService, OrderInterface } from '../../services/api.service';
 })
 export class KitchenComponent implements OnInit {
 
-  orders!: OrderInterface[];
+  orders!: OrderKitchenInterface[];
   orderForm!: FormGroup;
 
   constructor(
-    private readonly _service_order: ApiService
+    private readonly _service_order: KitchenService
   ) { }
 
   async ngOnInit() {
@@ -30,7 +30,7 @@ export class KitchenComponent implements OnInit {
     this.orders = await this._service_order.getOrders();
   }
 
-  getOrders(recipe: CommandeOrder) {
+  getOrders(recipe: RecipeInterface) {
     // get FormArray
     const recipes = this.orders.get('orders') as FormArray;
     // find if recipe is already in the form
@@ -46,7 +46,7 @@ export class KitchenComponent implements OnInit {
       // create new controls Group
       const recipeForm = new FormGroup({
         quantity: new FormControl(1),
-        orderId: new FormControl(recipe.orderId)
+        orderId: new FormControl(recipe.title)
       });
       // push to FormArray
       recipes.push(recipeForm);
@@ -55,10 +55,8 @@ export class KitchenComponent implements OnInit {
     console.log(this.orders.values);
   }
 
-  async sendOrder() {
-    const response = await this._service_order.sendOrder(this.orders.values);
+  async orderStatus() {
+    const response = await this._service_order.orderStatus();
   }
-
-}
 
 }
