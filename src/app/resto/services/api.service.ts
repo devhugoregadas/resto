@@ -9,7 +9,8 @@ import {
 
 export interface OrderInterface {
   placeId: string;
-  data: RecipeInterface & { quantity: number }[];
+  data: ({quantity: number}  & RecipeInterface)[];
+  status?: string;
 }
 export interface ApiServiceInterface {
   // Method for Room
