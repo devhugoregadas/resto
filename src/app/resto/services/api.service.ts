@@ -27,7 +27,7 @@ export class ApiService implements ApiServiceInterface {
   constructor(private readonly _http: HttpClient) {}
 
   async getRecipes(): Promise<RecipeGroupInterface[]> {
-    const url = `./assets/data.json`;
+    const url = `./assets/data/data.json`;
     const req = this._http.get<RestorantInterface>(url);
     const result = await firstValueFrom(req);
     return result.data;

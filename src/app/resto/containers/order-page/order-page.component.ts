@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ToastController } from '@ionic/angular';
 import { RecipeGroupInterface, RecipeInterface } from '../../resto.interfaces';
 import { ApiService } from '../../services/api.service';
 
@@ -14,13 +15,14 @@ export class OrderPageComponent implements OnInit {
   form!: FormGroup;
 
   constructor(
-    private readonly _service: ApiService
+    private readonly _service: ApiService,
+    public toastController: ToastController
   ) { }
 
   async ngOnInit() {
     // create form
     this.form = new FormGroup({
-      placeId: new FormControl(Date.now()),
+      placeId: new FormControl(null, Validators.required),
       datas: new FormArray([], Validators.compose([
         Validators.required,
         Validators.minLength(1)
@@ -59,7 +61,35 @@ export class OrderPageComponent implements OnInit {
   }
 
   async sendOrder() {
+
+    // Ask for table number
+    if(!this.form.get('placeId')?.value){
+      await this._askTableNumber();
+    }
+
+    // Handle form errors
+    if (this.form.invalid){
+      await this._displayToast('Form is invalid', 'danger');
+      return;
+    }
+
     const response = await this._service.sendOrder(this.form.value);
+    if(response.result === true ) {
+      await this._displayToast('Order sent successfully');
+      // Reset form group
+      this.form.reset();
+      (this.form.get('datas' as formArray).clear())
+    } else {
+      
+    }
+  }
+
+  async presentToast(){
+    const toast = await this.toastController.create({
+      message:'Added to the order ${{recipe.title}}',
+      duration: 1000
+    });
+    toast.present();
   }
 
 }

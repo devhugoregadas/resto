@@ -4,17 +4,26 @@ import { OrderPageComponent } from './containers/order-page/order-page.component
 import { ApiService } from './services/api.service';
 import { KitchenComponent } from './containers/kitchen/kitchen.component'
 import { RouterModule } from '@angular/router';
+import { IonicModule } from '@ionic/angular';
+import { CountOrderPipe } from './pipes/count-order.pipe';
 
 @NgModule({
   declarations: [
     OrderPageComponent,
-    KitchenComponent
+    KitchenComponent,
+    CountOrderPipe
   ],
   imports: [
     CommonModule,
+    IonicModule,
     RouterModule.forChild([
       {
         path: '',
+        redirectTo: '/order',
+        pathMatch: 'full'
+      },
+      {
+        path: 'order',
         component: OrderPageComponent
       },
       {
@@ -25,7 +34,8 @@ import { RouterModule } from '@angular/router';
   ],
   providers: [ApiService],
   exports: [
-    OrderPageComponent
+    OrderPageComponent,
+    KitchenComponent
   ],
 })
 export class RestoModule { }

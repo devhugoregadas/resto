@@ -4,6 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RestoModule } from './resto/resto.module';
+import { IonicModule } from '@ionic/angular';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -12,7 +14,9 @@ import { RestoModule } from './resto/resto.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    RestoModule
+    RestoModule,
+    HttpClientModule,
+    IonicModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
