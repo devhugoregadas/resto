@@ -13,6 +13,8 @@ export class OrderPageComponent implements OnInit {
 
   datas!: RecipeGroupInterface[];
   form!: FormGroup;
+  _askTableNumber: any;
+  _displayToast: any;
 
   constructor(
     private readonly _service: ApiService,
@@ -78,7 +80,7 @@ export class OrderPageComponent implements OnInit {
       await this._displayToast('Order sent successfully');
       // Reset form group
       this.form.reset();
-      (this.form.get('datas' as formArray).clear())
+      (this.form.get('datas' )as FormArray)?.clear()
     } else {
       
     }
